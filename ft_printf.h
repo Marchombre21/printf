@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:25:30 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/18 17:48:36 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/19 16:28:26 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,15 @@ typedef struct s_flags
 }	t_flags;
 
 int	ft_printf(const char *s, ...);
-int print_s(t_flags *flags, va_list ap);
+void print_s(t_flags *flags, va_list ap, int *count);
 char	*ft_ltoa(long n, t_flags *flags);
+char	*ft_ltoa_hexa(unsigned int n, t_flags *flags);
+void print_padding(int size, t_flags *flags, int *count);
+void print_c(t_flags *flags, va_list ap, int *count);
+void	print_s(t_flags *flags, va_list ap, int *count);
+void	print_decimal(t_flags *flags, va_list ap, int *count);
+void	print_decimal_u(t_flags *flags, va_list ap, int *count);
+void	check_hexa(t_flags *flags, va_list ap, int *count);
 
 
 

@@ -1,19 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_print_padding.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/08 16:44:26 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/19 08:39:27 by bfitte           ###   ########.fr       */
+/*   Created: 2025/11/19 16:24:44 by bfitte            #+#    #+#             */
+/*   Updated: 2025/11/19 18:49:00 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
+#include "libft/libft.h"
 
-void	ft_putchar_fd(char c, int fd, int *count)
+void print_padding(int size, t_flags *flags, int *count)
 {
-	(*count)++;
-	write(fd, &c, 1);
+	int		i;
+	char	c;
+	char	d;
+	
+	d = flags->type;
+	if (size > 0)
+	{
+		if (flags->zero && (d != 'c' || d != 's' || d != 'p' || d != '%')
+				 && !flags->minus && !flags->precision)
+			c = '0';
+		else
+			c = ' ';
+		i = 0;
+		while (i < size)
+		{
+			ft_putchar_fd(c, 1, count);
+			i++;
+		}
+
+	}
 }

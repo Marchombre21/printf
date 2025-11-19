@@ -6,12 +6,12 @@
 /*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:16:12 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/18 17:32:42 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/19 18:49:00 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "printf.h"
+#include "ft_printf.h"
 
 static int	ft_count(long n, t_flags *flags)
 {
