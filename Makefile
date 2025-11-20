@@ -3,7 +3,7 @@ CC=cc
 HEADERS=printf.h
 LIBFT=libft/libft.a
 LIBFT_DIR=libft/
-CFLAGS=-Wall -Werror -Wextra -I. -g
+CFLAGS=-Wall -Werror -Wextra -I.
 CDEPFLAGS=-MMD -MP
 BONUS=.bonus
 
@@ -59,8 +59,5 @@ fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
-
-test: re bonus
-	$(CC) -Wall -Werror -Wextra -g3 main.c $(NAME) -lbsd
 
 .PHONY: all clean fclean re test bonus
