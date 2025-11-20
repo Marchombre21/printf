@@ -6,14 +6,14 @@
 #    By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/06 06:57:02 by bfitte            #+#    #+#              #
-#    Updated: 2025/11/18 13:34:10 by bfitte           ###   ########.fr        #
+#    Updated: 2025/11/20 14:21:40 by bfitte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=libft.a
 CC=cc
 HEADERS=libft.h
-CFLAGS=-Wall -Werror -Wextra -I.
+CFLAGS=-Wall -Werror -Wextra -I. -g
 SRC_FILES=ft_isalpha.c\
 	ft_memcpy.c\
 	ft_strrchr.c\

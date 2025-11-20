@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:23:44 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/19 18:49:00 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/20 17:59:22 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,18 @@
 
 int	main(void)
 {
-	// char	*s = "coucou";
-	unsigned int	i = 0;
-	unsigned int	j = 42;
-	printf("retour de printf : %d\n", printf("Coucou %+d et truc %x\n", i, j));
-	printf("retour de ft_printf : %d\n", ft_printf("Coucou %+d et truc %x\n", i, j));
+	int	ncm_p;
+
+	ncm_p = 1;
+	printf("retour de printf : %d\n", printf(" %u ", -9));
+	printf("retour de ft_printf : %d\n", ft_printf(" %u ", -9));
+	printf("retour de printf : %d\n", printf(" %u ", INT_MIN));
+	printf("retour de ft_printf : %d\n", ft_printf(" %u ", INT_MIN));
+	printf("retour de printf : %d\n", printf(" %u ", LONG_MAX));
+	printf("retour de ft_printf : %d\n", ft_printf(" %u ", LONG_MAX));
+	printf("retour de printf : %d\n", printf(" %u ", UINT_MAX));
+	printf("retour de ft_printf : %d\n", ft_printf(" %u ", UINT_MAX));
+	printf("retour de printf : %d\n", printf(" %u ", ULONG_MAX));
+	printf("retour de ft_printf : %d\n", ft_printf(" %u ", ULONG_MAX));
 	return (0);
 }

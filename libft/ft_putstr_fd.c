@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd, int *count)
+void	ft_putstr_fd(char *s, int fd, int *count, int mal)
 {
 	int	s_len;
 
@@ -21,4 +21,6 @@ void	ft_putstr_fd(char *s, int fd, int *count)
 	s_len = ft_strlen(s);
 	(*count) += s_len;
 	write(fd, s, s_len);
+	if (mal != 0)
+		free(s);
 }

@@ -27,7 +27,7 @@
 // // 	return (0);
 // // }
 
-void	ft_putnbr_fd(int n, int fd, int *count)
+void	ft_putnbr_fd(long n, int fd, int *count)
 {
 	if (n == -2147483648)
 		write(fd, "-2147483648", 11);

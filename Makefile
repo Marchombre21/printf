@@ -1,44 +1,66 @@
 NAME=libftprintf.a
 CC=cc
 HEADERS=printf.h
-LIBFT=libft.a
+LIBFT=libft/libft.a
 LIBFT_DIR=libft/
 CFLAGS=-Wall -Werror -Wextra -I. -g
+CDEPFLAGS=-MMD -MP
+BONUS=.bonus
+
 SRC_FILES=ft_printf.c\
 	check_type.c\
 	ft_ltoa.c\
 	ft_ltoa_hexa.c\
-	ft_print_padding.c
+	ft_extra_signs.c
 
-# BONUS_FILES=
+BONUS_FILES=ft_printf_bonus.c\
+	check_type_bonus.c\
+	ft_ltoa_bonus.c\
+	ft_ltoa_hexa_bonus.c\
+	ft_extra_signs_bonus.c
 
 OBJ=$(SRC_FILES:.c=.o)
 
-# OBJ_BONUS=$(BONUS_FILES:.c=.o)
+BONUS_OBJ=$(BONUS_FILES:.c=.o)
+
+DEPS=$(OBJ:.o=.d)
+
+BONUS_DEPS=$(BONUS_OBJ:.o=.d)
+
+-include $(DEPS)
+
+-include $(BONUS_DEPS)
+
+all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	cp $(LIBFT_DIR)$(LIBFT) $(NAME)
+	cp $(LIBFT) $(NAME)
 	ar rcs $(NAME) $(OBJ)
 
-%.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -o $@ -c $<
+%.o: %.c
+	$(CC) $(CFLAGS) $(CDEPFLAGS) -c $< -o $@
 
 $(LIBFT) :
 	$(MAKE) -C $(LIBFT_DIR) bonus
 
-all: $(NAME)
+$(BONUS):$(BONUS_OBJ) $(LIBFT)
+	cp $(LIBFT) $(NAME)
+	ar rcs $(NAME) $(BONUS_OBJ)
+	touch $@
+
+bonus: $(BONUS)
 
 clean: 
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(DEPS) $(BONUS_OBJ) $(BONUS_DEPS)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-test: all clean
+test: re bonus
 	$(CC) -Wall -Werror -Wextra -g3 main.c $(NAME) -lbsd
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test bonus

@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 09:45:05 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/15 12:08:33 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/20 14:14:02 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_size_malloc(char const *s, unsigned int start, size_t len)
 	return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len, int *mal)
 {
 	char	*new_str;
 	size_t	i;
@@ -57,5 +57,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 			new_str[i++] = s[start++];
 	}
 	new_str[i] = '\0';
+	(*mal)++;
 	return (new_str);
 }

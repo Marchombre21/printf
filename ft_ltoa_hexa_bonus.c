@@ -1,60 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoa.c                                          :+:      :+:    :+:   */
+/*   ft_ltoa_hexa_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:16:12 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/20 16:07:44 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/20 18:01:47 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "ft_printf.h"
 
-static int	ft_count(long n, t_flags *flags)
+static int	ft_count(unsigned long i, t_flags *flags)
 {
-	int	i;
-	int	div;
+	int	j;
 
-	i = 1;
-	div = 1;
-	while (n / div > 9)
+	j = 0;
+	if ((flags->diese || flags->type == 'p') && i != 0)
+		j += 2;
+	while (i / 16 > 0)
 	{
-		i++;
-		div *= 10;
+		j++;
+		i /= 16;
 	}
-	while (flags->precision > i)
-		i++;
-	return (i);
+	j++;
+	while (flags->precision > j && flags->type != 'p')
+		j++;
+	return (j);
 }
 
-static void	ft_fill_str(char *str, long nb, int nb_char)
+static void	ft_fill_str(char *str, unsigned long i, int nb_char, t_flags *flags)
 {
-	char	c;
+	char	*base;
 
 	ft_memset((void *)str, '0', nb_char);
-	if (nb > 9)
+	base = "0123456789abcdef";
+	if (flags->type == 'X')
+		base = "0123456789ABCDEF";
+	if ((flags->diese || flags->type == 'p') && i != 0)
 	{
-		c = (nb % 10) + 48;
-		str[nb_char - 1] = c;
-		ft_fill_str(str, nb / 10, nb_char - 1);
+		str[0] = '0';
+		if (flags->type == 'X')
+			str[1] = 'X';
+		else
+			str[1] = 'x';
 	}
-	else
+	while (i / 16 > 0)
 	{
-		c = nb + 48;
-		str[nb_char - 1] = c;
+		str[nb_char - 1] = base[i % 16];
+		i /= 16;
+		nb_char--;
 	}
+	str[nb_char - 1] = base[i];
 }
 
-char	*ft_ltoa(long n, t_flags *flags)
+char	*ft_ltoa_hexa(unsigned long n, t_flags *flags)
 {
 	char	*str;
 	int		nb_char;
 
-	if (n < 0)
-		n = -n;
 	nb_char = ft_count(n, flags);
 	if (n == 0 && flags->dot && flags->precision == 0)
 	{
@@ -68,7 +74,7 @@ char	*ft_ltoa(long n, t_flags *flags)
 		str = malloc(sizeof(char) * nb_char + 1);
 		if (!str)
 			return (NULL);
-		ft_fill_str(str, n, nb_char);
+		ft_fill_str(str, n, nb_char, flags);
 	}
 	str[nb_char] = '\0';
 	return (str);
