@@ -22,7 +22,7 @@ void	print_padding(int size, t_flags *flags, int *count)
 	d = flags->type;
 	if (size > 0)
 	{
-		if (flags->zero && (d != 'c' || d != 's' || d != 'p' || d != '%')
+		if (flags->zero && (d != 'c' && d != 's' && d != 'p' && d != '%')
 			&& !flags->minus && !flags->dot)
 			c = '0';
 		else
