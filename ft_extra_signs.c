@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-void	print_padding(int size, t_flags *flags, int *count)
+void	print_padding(int size, t_flags *flags, int *count, int j)
 {
 	int		i;
 	char	c;
@@ -28,6 +28,8 @@ void	print_padding(int size, t_flags *flags, int *count)
 		else
 			c = ' ';
 		i = 0;
+		if ((d == 'd' || d == 'i') && (flags->plus || flags->space) && j >= 0)
+			i++;
 		while (i < size)
 		{
 			ft_putchar_fd(c, 1, count);
@@ -65,11 +67,12 @@ void	check_hexa_p(t_flags *flags, va_list ap, int *count)
 	if (flags->minus)
 	{
 		ft_putstr_fd(s, 1, count, 1);
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, 0);
 	}
 	else
 	{
-		print_padding(flags->width - s_len, flags, count);
+		if (!flags->zero)
+			print_padding(flags->width - s_len, flags, count, 0);
 		ft_putstr_fd(s, 1, count, 1);
 	}
 }
@@ -79,16 +82,16 @@ void	check_order(t_flags *flags, int s_len, int *count, int j)
 	if (flags->zero && !flags->precision && !flags->dot)
 	{
 		print_sign(flags, count, j);
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, j);
 	}
 	else if (flags->zero && !flags->precision && flags->dot)
 	{
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, j);
 		print_sign(flags, count, j);
 	}
 	else
 	{
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, j);
 		print_sign(flags, count, j);
 	}
 }

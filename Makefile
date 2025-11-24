@@ -2,8 +2,6 @@ NAME=libftprintf.a
 
 CC=cc
 
-HEADERS=printf.h
-
 LIBFT=libft/libft.a
 
 LIBFT_DIR=libft/

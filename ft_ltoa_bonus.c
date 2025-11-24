@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ltoa_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:16:12 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/20 16:07:53 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/24 12:46:09 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 static int	ft_count(long n, t_flags *flags)
 {

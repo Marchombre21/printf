@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 12:12:52 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/20 17:58:28 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/24 12:38:39 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	print_c(t_flags *flags, va_list ap, int *count)
 	if (flags->minus)
 	{
 		ft_putchar_fd((char)i, 1, count);
-		print_padding(flags->width - 1, flags, count);
+		print_padding(flags->width - 1, flags, count, 0);
 	}
 	else
 	{
-		print_padding(flags->width - 1, flags, count);
+		print_padding(flags->width - 1, flags, count, 0);
 		ft_putchar_fd((char)i, 1, count);
 	}
 }
@@ -50,11 +50,11 @@ void	print_s(t_flags *flags, va_list ap, int *count)
 	if (flags->minus)
 	{
 		ft_putstr_fd(s, 1, count, malornot);
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, 0);
 	}
 	else
 	{
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, 0);
 		ft_putstr_fd(s, 1, count, malornot);
 	}
 }
@@ -76,7 +76,7 @@ void	print_decimal(t_flags *flags, va_list ap, int *count)
 	{
 		print_sign(flags, count, j);
 		ft_putstr_fd(s, 1, count, 1);
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, j);
 	}
 	else
 	{
@@ -99,11 +99,11 @@ void	print_decimal_u(t_flags *flags, va_list ap, int *count)
 	if (flags->minus)
 	{
 		ft_putstr_fd(s, 1, count, 1);
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, 0);
 	}
 	else
 	{
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, 0);
 		ft_putstr_fd(s, 1, count, 1);
 	}
 }
@@ -122,11 +122,12 @@ void	check_hexa(t_flags *flags, va_list ap, int *count)
 	if (flags->minus)
 	{
 		ft_putstr_fd(s, 1, count, 1);
-		print_padding(flags->width - s_len, flags, count);
+		print_padding(flags->width - s_len, flags, count, 0);
 	}
 	else
 	{
-		print_padding(flags->width - s_len, flags, count);
+		if (!flags->zero || i == 0 || flags->dot)
+			print_padding(flags->width - s_len, flags, count, 0);
 		ft_putstr_fd(s, 1, count, 1);
 	}
 }

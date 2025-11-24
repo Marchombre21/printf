@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ltoa_hexa.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:16:12 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/20 18:00:11 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/24 12:34:14 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static int	ft_count(unsigned long i, t_flags *flags)
 	int	j;
 
 	j = 0;
-	if ((flags->diese || flags->type == 'p') && i != 0)
-		j += 2;
 	while (i / 16 > 0)
 	{
 		j++;
@@ -27,6 +25,10 @@ static int	ft_count(unsigned long i, t_flags *flags)
 	}
 	j++;
 	while (flags->precision > j && flags->type != 'p')
+		j++;
+	if ((flags->diese || flags->type == 'p') && i != 0)
+		j += 2;
+	while (flags->width > j && flags->zero && i != 0 && !flags->dot)
 		j++;
 	return (j);
 }

@@ -3,43 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 07:29:56 by bfitte            #+#    #+#             */
-/*   Updated: 2025/11/21 07:24:34 by bfitte           ###   ########.fr       */
+/*   Updated: 2025/11/24 12:45:52 by bfitte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-static void	handle_type(char c, t_flags *flags, va_list ap, int *count)
+static void	handle_type(char *c, t_flags *flags, va_list ap, int *count)
 {
-	if (c == 's')
+	char	*temp;
+
+	if (*c == 's')
 		print_s(flags, ap, count);
-	else if (c == 'c')
+	else if (*c == 'c')
 		print_c(flags, ap, count);
-	else if (c == 'x' || c == 'X')
+	else if (*c == 'x' || *c == 'X')
 		check_hexa(flags, ap, count);
-	else if (c == 'p')
+	else if (*c == 'p')
 		check_hexa_p(flags, ap, count);
-	else if (c == 'd' || c == 'i')
+	else if (*c == 'd' || *c == 'i')
 		print_decimal(flags, ap, count);
-	else if (c == 'u')
+	else if (*c == 'u')
 		print_decimal_u(flags, ap, count);
-	else if (c == '%')
+	else if (*c == '%')
 		ft_putchar_fd('%', 1, count);
 	else
 	{
-		ft_putchar_fd('%', 1, count);
-		ft_putchar_fd(c, 1, count);
+		temp = c;
+		while (*temp != '%')
+			temp--;
+		while (*temp != *c)
+			ft_putchar_fd(*temp++, 1, count);
+		ft_putchar_fd(*temp, 1, count);
 	}
 }
 
 static int	handle_char(char *c, t_flags *flags, int i)
 {
-	while (c[i] == '-' || c[i] == ' ' || c[i] == '0' || c[i] == '#'
-		|| c[i] == '+')
+	while (c[i] && (c[i] == '-' || c[i] == ' ' || c[i] == '0' || c[i] == '#'
+			|| c[i] == '+'))
 	{
 		if (c[i] == '-')
 			flags->minus = 1;
@@ -53,7 +59,7 @@ static int	handle_char(char *c, t_flags *flags, int i)
 			flags->plus = 1;
 		i++;
 	}
-	while (c[i] >= '0' && c[i] <= '9')
+	while (c[i] && (c[i] >= '0' && c[i] <= '9'))
 		flags->width = flags->width * 10 + (c[i++] - 48);
 	if (c[i] == '.')
 	{
@@ -81,7 +87,7 @@ static int	scroll_string(const char *s, va_list ap)
 			if (!flags)
 				return (0);
 			i = handle_char((char *)s, flags, ++i);
-			handle_type(s[i++], flags, ap, &count);
+			handle_type((char *)s + i++, flags, ap, &count);
 			free(flags);
 		}
 		else
